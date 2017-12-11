@@ -378,7 +378,7 @@ public class ParameterExpanderTest {
     @Test
     public void testGetBuildCompletedCommandSuccessful() throws IOException, InterruptedException {
         tryGetBuildCompletedCommandSuccessful("",
-                "\n\nhttp://localhost/test/ : SUCCESS");
+                "\n\n- http://localhost/test/ http://localhost/test/ : SUCCESS");
         tryGetBuildCompletedCommandSuccessful("http://example.org/<CHANGE_ID>",
                 "\n\nhttp://example.org/Iddaaddaa123456789 : SUCCESS");
         tryGetBuildCompletedCommandSuccessful("${BUILD_URL}console",
@@ -394,7 +394,7 @@ public class ParameterExpanderTest {
     @Test
     public void testGetBuildCompletedCommandSuccessfulChangeAbandoned() throws IOException, InterruptedException {
         tryGetBuildCompletedCommandSuccessfulChangeAbandoned("",
-                "\n\nhttp://localhost/test/ : SUCCESS");
+                "\n\n- http://localhost/test/ http://localhost/test/ : SUCCESS");
         tryGetBuildCompletedCommandSuccessfulChangeAbandoned("http://example.org/<CHANGE_ID>",
                 "\n\nhttp://example.org/Iddaaddaa123456789 : SUCCESS");
         tryGetBuildCompletedCommandSuccessfulChangeAbandoned("${BUILD_URL}console",
@@ -409,7 +409,7 @@ public class ParameterExpanderTest {
     @Test
     public void testGetBuildCompletedCommandSuccessfulChangeMerged() throws IOException, InterruptedException {
         tryGetBuildCompletedCommandSuccessfulChangeMerged("",
-                "\n\nhttp://localhost/test/ : SUCCESS");
+                "\n\n- http://localhost/test/ http://localhost/test/ : SUCCESS");
         tryGetBuildCompletedCommandSuccessfulChangeMerged("http://example.org/<CHANGE_ID>",
                 "\n\nhttp://example.org/Iddaaddaa123456789 : SUCCESS");
         tryGetBuildCompletedCommandSuccessfulChangeMerged("${BUILD_URL}console",
@@ -425,7 +425,7 @@ public class ParameterExpanderTest {
     @Test
     public void testGetBuildCompletedCommandSuccessfulChangeRestored() throws IOException, InterruptedException {
         tryGetBuildCompletedCommandSuccessfulChangeRestored("",
-                "\n\nhttp://localhost/test/ : SUCCESS");
+                "\n\n- http://localhost/test/ http://localhost/test/ : SUCCESS");
         tryGetBuildCompletedCommandSuccessfulChangeRestored("http://example.org/<CHANGE_ID>",
                 "\n\nhttp://example.org/Iddaaddaa123456789 : SUCCESS");
         tryGetBuildCompletedCommandSuccessfulChangeRestored("${BUILD_URL}console",
@@ -442,9 +442,9 @@ public class ParameterExpanderTest {
     public void testGetBuildCompletedCommandMulipleBuildsMessageOrder() throws IOException, InterruptedException {
         tryGetBuildCompletedCommandEventWithResults("",
                 new String[] { // messages must be in order
-                    "\n\nhttp://localhost/test/ : FAILURE",
-                    "\n\nhttp://localhost/test/ : UNSTABLE",
-                    "\n\nhttp://localhost/test/ : SUCCESS", },
+                    "\n\n- http://localhost/test/ http://localhost/test/ : FAILURE",
+                    "\n\n- http://localhost/test/ http://localhost/test/ : UNSTABLE",
+                    "\n\n- http://localhost/test/ http://localhost/test/ : SUCCESS", },
                 new Result[] {Result.SUCCESS, Result.FAILURE, Result.UNSTABLE}, "'A disappointed butler says not OK",
                 Setup.createPatchsetCreated(), -1, 0);
     }

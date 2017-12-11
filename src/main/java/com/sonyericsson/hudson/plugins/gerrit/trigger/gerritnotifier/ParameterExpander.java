@@ -593,11 +593,20 @@ public class ParameterExpander {
                     str.append("\n\n");
 
                     if (entry.getCustomUrl() != null && !entry.getCustomUrl().isEmpty()) {
-                        str.append(expandParameters(entry.getCustomUrl(), build, listener, parameters));
+                        String customUrl = entry.getCustomUrl();
+                        String tmp_url = "- " + customUrl + " " + customUrl;
+                        str.append(expandParameters(tmp_url, build, listener, parameters));
                     } else if (trigger.getCustomUrl() != null && !trigger.getCustomUrl().isEmpty()) {
-                        str.append(expandParameters(trigger.getCustomUrl(), build, listener, parameters));
+                        String customUrl = trigger.getCustomUrl();
+                        String tmp_url = "- " + customUrl + " " + customUrl;
+                        str.append(expandParameters(tmp_url, build, listener, parameters));
                     } else {
-                        str.append(rootUrl).append(build.getUrl());
+                        // note(xiexinbinb): for gerrit-gwtexpui plugin, result format like:
+                        // - <ci-name> <build> : SUCCESS
+                        // str.append(rootUrl).append(build.getUrl());
+                        String customUrl = rootUrl + build.getUrl();
+                        String tmp_url = "- " + customUrl + " " + customUrl;
+                        str.append(tmp_url);
                     }
                     str.append(MESSAGE_DELIMITER);
 
